@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<mongo>
+	<node server_id="1" server_uri="mongodb://localhost:27017" dbname="localtion"/>
+</mongo>
+

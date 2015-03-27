@@ -1,0 +1,343 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<server>
+	<area name="北京" id="010">
+		<busline name="850路(马坡花园--东直门)" id="110100014471" start="马坡花园" end="东直门">
+			<station name="马坡花园" id="BV10420648" longitude="116652222" latitude="40171589" />
+
+			<station name="马坡花园北" id="BV10006787" longitude="116652550" latitude="40176861" />
+
+			<station name="顺恒大街北" id="BV10008818" longitude="116652710" latitude="40180126" />
+
+			<station name="新兴街北" id="BV10334414" longitude="116652771" latitude="40183842" />
+
+			<station name="顺丰大街西" id="BV10008816" longitude="116660049" latitude="40186237" />
+
+			<station name="顺丰大街" id="BV10008815" longitude="116660019" latitude="40182705" />
+
+			<station name="向阳村北" id="BV10008814" longitude="116660019" latitude="40181507" />
+
+			<station name="顺恒大街" id="BV10008813" longitude="116660004" latitude="40180725" />
+
+			<station name="向阳村" id="BV10003522" longitude="116659966" latitude="40175438" />
+
+			<station name="向阳村南" id="BV10008812" longitude="116659943" latitude="40172283" />
+
+			<station name="乡村赛马场" id="BV10005334" longitude="116659912" latitude="40168377" />
+
+			<station name="大营" id="BV10005335" longitude="116659500" latitude="40159256" />
+
+			<station name="枫桥别墅" id="BV10008811" longitude="116657089" latitude="40150726" />
+
+			<station name="双兴桥" id="BV10005339" longitude="116656578" latitude="40141983" />
+
+			<station name="双兴小区" id="BV10003313" longitude="116657059" latitude="40139122" />
+
+			<station name="便民街东口" id="BV10003317" longitude="116657104" latitude="40135609" />
+
+			<station name="顺义医院" id="BV10005096" longitude="116656906" latitude="40128620" />
+
+			<station name="东风小学" id="BV10004081" longitude="116657127" latitude="40125072" />
+
+			<station name="仓上小区" id="BV10006792" longitude="116658539" latitude="40113384" />
+
+			<station name="石园北区" id="BV10008810" longitude="116661545" latitude="40112110" />
+
+			<station name="顺义老年公寓" id="BV10002188" longitude="116668022" latitude="40112114" />
+
+			<station name="石园东区" id="BV10002587" longitude="116666893" latitude="40108765" />
+
+			<station name="石园南区" id="BV10002588" longitude="116662537" latitude="40108768" />
+
+			<station name="顺义城乡大厦" id="BV10008809" longitude="116659706" latitude="40108261" />
+
+			<station name="平各庄" id="BV10005140" longitude="116661110" latitude="40101791" />
+
+			<station name="林河开发区" id="BV10004264" longitude="116661041" latitude="40095055" />
+
+			<station name="陶家坟" id="BV10004263" longitude="116660873" latitude="40090298" />
+
+			<station name="山子坟" id="BV10004084" longitude="116661560" latitude="40081272" />
+
+			<station name="窑坡" id="BV10004262" longitude="116661911" latitude="40074913" />
+
+			<station name="后桥" id="BV10004261" longitude="116661705" latitude="40064430" />
+
+			<station name="李桥" id="BV10002262" longitude="116667137" latitude="40042316" />
+
+			<station name="馨港车站" id="BV10002264" longitude="116663635" latitude="40037804" />
+
+			<station name="顺义半壁店" id="BV10002266" longitude="116639137" latitude="40034767" />
+
+			<station name="顺义半壁店大队" id="BV10008808" longitude="116630737" latitude="40034176" />
+
+			<station name="樱花园三区" id="BV10008807" longitude="116624901" latitude="40033985" />
+
+			<station name="岗山村南" id="BV10008276" longitude="116613770" latitude="40035122" />
+
+			<station name="岗山村" id="BV10428235" longitude="116612122" latitude="40043770" />
+
+			<station name="岗山路" id="BV10008278" longitude="116604027" latitude="40046459" />
+
+			<station name="东平里" id="BV10008279" longitude="116595757" latitude="40053555" />
+
+			<station name="天竺供销社" id="BV10002578" longitude="116583229" latitude="40061058" />
+
+			<station name="天竺卫生院" id="BV10002577" longitude="116574844" latitude="40061836" />
+
+			<station name="天竺花园" id="BV10002576" longitude="116567657" latitude="40062431" />
+
+			<station name="顺义马连店" id="BV10008805" longitude="116554169" latitude="40064472" />
+
+			<station name="北甸" id="BV10008804" longitude="116538124" latitude="40050659" />
+
+			<station name="孙河" id="BV10002192" longitude="116532692" latitude="40040260" />
+
+			<station name="北皋" id="BV10411042" longitude="116512573" latitude="40011784" />
+
+			<station name="大山桥东" id="BV10002225" longitude="116486687" latitude="39988007" />
+
+			<station name="京顺路丽都饭店" id="BV10000430" longitude="116476585" latitude="39978870" />
+
+			<station name="三元桥" id="BV10405729" longitude="116455101" latitude="39960011" />
+
+			<station name="左家庄" id="BV10002197" longitude="116446388" latitude="39952766" />
+
+			<station name="东直门" id="BV10002729" longitude="116438591" latitude="39941814" />
+		</busline>
+
+		<busline name="850路(东直门--马坡花园)" id="110100014470" start="东直门" end="马坡花园">
+			<station name="东直门" id="BV10002729" longitude="116436508" latitude="39941151" />
+
+			<station name="左家庄" id="BV10002197" longitude="116445984" latitude="39952301" />
+
+			<station name="三元桥" id="BV10405729" longitude="116455826" latitude="39960243" />
+
+			<station name="京顺路丽都饭店" id="BV10000430" longitude="116476616" latitude="39978729" />
+
+			<station name="大山桥东" id="BV10002225" longitude="116488907" latitude="39989792" />
+
+			<station name="北皋" id="BV10411042" longitude="116512291" latitude="40011372" />
+
+			<station name="孙河" id="BV10002192" longitude="116532570" latitude="40039822" />
+
+			<station name="北甸" id="BV10008804" longitude="116537979" latitude="40050213" />
+
+			<station name="顺义马连店" id="BV10008805" longitude="116555862" latitude="40065128" />
+
+			<station name="天竺花园" id="BV10002576" longitude="116567413" latitude="40062336" />
+
+			<station name="天竺卫生院" id="BV10002577" longitude="116574234" latitude="40061779" />
+
+			<station name="天竺供销社" id="BV10002578" longitude="116584595" latitude="40060776" />
+
+			<station name="东平里" id="BV10008279" longitude="116595276" latitude="40053837" />
+
+			<station name="岗山路" id="BV10008278" longitude="116603821" latitude="40046520" />
+
+			<station name="岗山村" id="BV10428235" longitude="116612152" latitude="40043762" />
+
+			<station name="岗山村南" id="BV10008276" longitude="116614281" latitude="40034931" />
+
+			<station name="樱花园三区" id="BV10008807" longitude="116625984" latitude="40033833" />
+
+			<station name="顺义半壁店大队" id="BV10008808" longitude="116630692" latitude="40034107" />
+
+			<station name="顺义半壁店" id="BV10002266" longitude="116639343" latitude="40034740" />
+
+			<station name="馨港车站" id="BV10002264" longitude="116663666" latitude="40037807" />
+
+			<station name="李桥" id="BV10002262" longitude="116667091" latitude="40043190" />
+
+			<station name="后桥" id="BV10004261" longitude="116661598" latitude="40064854" />
+
+			<station name="窑坡" id="BV10004262" longitude="116662186" latitude="40076290" />
+
+			<station name="山子坟" id="BV10004084" longitude="116661339" latitude="40083218" />
+
+			<station name="陶家坟" id="BV10004263" longitude="116660843" latitude="40087349" />
+
+			<station name="林河开发区" id="BV10004264" longitude="116661163" latitude="40096897" />
+
+			<station name="平各庄" id="BV10005140" longitude="116661217" latitude="40101612" />
+
+			<station name="石园南区" id="BV10002588" longitude="116662102" latitude="40108639" />
+
+			<station name="石园东区" id="BV10002587" longitude="116667480" latitude="40108627" />
+
+			<station name="顺义老年公寓" id="BV10002188" longitude="116668076" latitude="40112118" />
+
+			<station name="石园北区" id="BV10008810" longitude="116665085" latitude="40112106" />
+
+			<station name="仓上小区" id="BV10006792" longitude="116658745" latitude="40112816" />
+
+			<station name="东风小学" id="BV10004081" longitude="116657310" latitude="40123619" />
+
+			<station name="顺义医院" id="BV10005096" longitude="116657013" latitude="40128201" />
+
+			<station name="便民街东口" id="BV10003317" longitude="116657082" latitude="40134731" />
+
+			<station name="双兴小区" id="BV10003313" longitude="116657219" latitude="40138512" />
+
+			<station name="双兴桥" id="BV10005339" longitude="116656601" latitude="40142349" />
+
+			<station name="枫桥别墅" id="BV10008811" longitude="116657623" latitude="40152306" />
+
+			<station name="大营" id="BV10005335" longitude="116659767" latitude="40160732" />
+
+			<station name="乡村赛马场" id="BV10005334" longitude="116659912" latitude="40165508" />
+
+			<station name="向阳村南" id="BV10008812" longitude="116660004" latitude="40172817" />
+
+			<station name="向阳村" id="BV10003522" longitude="116660034" latitude="40176628" />
+
+			<station name="顺恒大街" id="BV10008813" longitude="116660072" latitude="40180676" />
+
+			<station name="向阳村北" id="BV10008814" longitude="116660088" latitude="40183952" />
+
+			<station name="顺丰大街西" id="BV10008816" longitude="116656754" latitude="40186871" />
+
+			<station name="新兴街北" id="BV10334414" longitude="116652695" latitude="40182568" />
+
+			<station name="顺恒大街北" id="BV10008818" longitude="116652603" latitude="40178997" />
+
+			<station name="马坡花园北" id="BV10006787" longitude="116652397" latitude="40175430" />
+
+			<station name="马坡花园" id="BV10420648" longitude="116652168" latitude="40171749" />
+		</busline>
+
+		<busline name="850路快(马坡花园--东直门)" id="110100014473" start="马坡花园" end="东直门">
+			<station name="马坡花园" id="BV10420648" longitude="116652153" latitude="40171654" />
+
+			<station name="乡村赛马场" id="BV10005334" longitude="116659912" latitude="40168411" />
+
+			<station name="大营" id="BV10005335" longitude="116659485" latitude="40159218" />
+
+			<station name="枫桥别墅" id="BV10008811" longitude="116657074" latitude="40150677" />
+
+			<station name="双兴桥" id="BV10005339" longitude="116656624" latitude="40141720" />
+
+			<station name="双兴小区" id="BV10003313" longitude="116657104" latitude="40138916" />
+
+			<station name="便民街东口" id="BV10003317" longitude="116657104" latitude="40135555" />
+
+			<station name="顺义医院" id="BV10005096" longitude="116656906" latitude="40128651" />
+
+			<station name="东风小学" id="BV10004081" longitude="116657135" latitude="40124981" />
+
+			<station name="仓上小区" id="BV10006792" longitude="116658569" latitude="40113251" />
+
+			<station name="石园北区" id="BV10008810" longitude="116665398" latitude="40112103" />
+
+			<station name="石园东区北门" id="BV10436651" longitude="116667458" latitude="40112114" />
+
+			<station name="石园东区" id="BV10002587" longitude="116666725" latitude="40108765" />
+
+			<station name="石园南区" id="BV10002588" longitude="116662514" latitude="40108768" />
+
+			<station name="顺义城乡大厦" id="BV10008809" longitude="116659737" latitude="40108116" />
+
+			<station name="平各庄" id="BV10005140" longitude="116661148" latitude="40101498" />
+
+			<station name="林河开发区" id="BV10004264" longitude="116661041" latitude="40094982" />
+
+			<station name="陶家坟" id="BV10004263" longitude="116660851" latitude="40086124" />
+
+			<station name="山子坟" id="BV10004084" longitude="116661530" latitude="40081497" />
+
+			<station name="窑坡" id="BV10004262" longitude="116661911" latitude="40074955" />
+
+			<station name="后桥" id="BV10004261" longitude="116661751" latitude="40064308" />
+
+			<station name="李桥" id="BV10002262" longitude="116667145" latitude="40042305" />
+
+			<station name="馨港车站" id="BV10002264" longitude="116663582" latitude="40037792" />
+
+			<station name="顺义半壁店" id="BV10002266" longitude="116639153" latitude="40034771" />
+
+			<station name="顺义半壁店西" id="BV10418273" longitude="116630836" latitude="40034180" />
+
+			<station name="樱花园三区" id="BV10008807" longitude="116624878" latitude="40033985" />
+
+			<station name="岗山村南" id="BV10008276" longitude="116613930" latitude="40035107" />
+
+			<station name="岗山村" id="BV10428235" longitude="116612045" latitude="40043793" />
+
+			<station name="岗山路" id="BV10008278" longitude="116603851" latitude="40046509" />
+
+			<station name="东平里" id="BV10008279" longitude="116595573" latitude="40053738" />
+
+			<station name="三元桥" id="BV10405729" longitude="116449493" latitude="39953560" />
+
+			<station name="东直门" id="BV10002729" longitude="116438576" latitude="39942142" />
+		</busline>
+		<busline name="850路快(东直门--马坡花园)" id="110100014472" start="东直门" end="马坡花园">
+			<station name="东直门" id="BV10002729" longitude="116436676" latitude="39941151" />
+
+			<station name="左家庄" id="BV10002197" longitude="116445709" latitude="39952106" />
+
+			<station name="三元桥" id="BV10405729" longitude="116456009" latitude="39960346" />
+
+			<station name="机场道口" id="BV10007230" longitude="116595261" latitude="40053856" />
+
+			<station name="国泰超市" id="BV10004236" longitude="116604065" latitude="40046444" />
+
+			<station name="岗山村" id="BV10428235" longitude="116612274" latitude="40043724" />
+
+			<station name="岗山村南" id="BV10008276" longitude="116614403" latitude="40034916" />
+
+			<station name="樱花园三区" id="BV10008807" longitude="116626190" latitude="40033833" />
+
+			<station name="顺义半壁店大队" id="BV10008808" longitude="116630814" latitude="40034115" />
+
+			<station name="顺义半壁店" id="BV10002266" longitude="116639420" latitude="40034744" />
+
+			<station name="馨港车站" id="BV10002264" longitude="116663559" latitude="40037777" />
+
+			<station name="李桥" id="BV10002262" longitude="116667091" latitude="40043186" />
+
+			<station name="后桥" id="BV10004261" longitude="116661652" latitude="40064716" />
+
+			<station name="窑坡" id="BV10004262" longitude="116662170" latitude="40076153" />
+
+			<station name="山子坟" id="BV10004084" longitude="116661362" latitude="40083076" />
+
+			<station name="陶家坟" id="BV10004263" longitude="116660851" latitude="40087437" />
+
+			<station name="林河开发区" id="BV10004264" longitude="116661163" latitude="40096989" />
+
+			<station name="平各庄" id="BV10005140" longitude="116661217" latitude="40101582" />
+
+			<station name="顺义城乡大厦" id="BV10008809" longitude="116660324" latitude="40108639" />
+
+			<station name="石园南区" id="BV10002588" longitude="116662292" latitude="40108639" />
+
+			<station name="石园东区" id="BV10002587" longitude="116667427" latitude="40108627" />
+
+			<station name="顺义老年公寓" id="BV10002188" longitude="116668091" latitude="40112118" />
+
+			<station name="石园北区" id="BV10008810" longitude="116665123" latitude="40112106" />
+
+			<station name="仓上小区" id="BV10006792" longitude="116658684" latitude="40113041" />
+
+			<station name="东风小学" id="BV10004081" longitude="116657272" latitude="40124153" />
+
+			<station name="顺义医院" id="BV10005096" longitude="116656998" latitude="40128471" />
+
+			<station name="便民街东口" id="BV10003317" longitude="116657082" latitude="40134731" />
+
+			<station name="双兴小区" id="BV10003313" longitude="116657211" latitude="40138554" />
+
+			<station name="双兴桥" id="BV10005339" longitude="116656563" latitude="40142502" />
+
+			<station name="枫桥别墅" id="BV10008811" longitude="116657600" latitude="40152252" />
+
+			<station name="大营" id="BV10005335" longitude="116659790" latitude="40160973" />
+
+			<station name="乡村赛马场" id="BV10005334" longitude="116659912" latitude="40165581" />
+
+			<station name="马坡花园" id="BV10420648" longitude="116652222" latitude="40171558" />
+		</busline>
+	</area>
+</server>
+
+
