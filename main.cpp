@@ -18,6 +18,7 @@
 #include "../logger/logger.h"
 #include "../frame/frame.h"
 #include "../include/cachekey_define.h"
+#include "../include/dbkey_define.h"
 #include "regist_message.h"
 #include "dispatch/msgparser_factory.h"
 #include "dispatch/msg_handler.h"
@@ -33,6 +34,7 @@ using namespace FRAME;
 //注册到配置管理器
 REGIST_CONFIG(USER_BASE_INFO, UserBaseInfo)
 REGIST_CONFIG(ACCOUNT_INFO, AccountInfo)
+REGIST_CONFIG(DB_LOCATION, DB_Location);
 
 int32_t InitNetAndTimer(CNetHandler *pNetHandler)
 {
