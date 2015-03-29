@@ -63,12 +63,6 @@ int32_t CBusConfig::Init()
 
 		string strCityID = string(pszValue);
 
-		CityInfo *pCityInfo = new CityInfo();
-		pCityInfo->m_strCityName = strCityName;
-		pCityInfo->m_strCityID = strCityID;
-
-		m_stCountry.m_stCityInfo[strCityName] = pCityInfo;
-
 		TiXmlElement *pBusLineNode = pAreaNode->FirstChildElement("busline");
 		while(pBusLineNode != NULL)
 		{
@@ -112,13 +106,16 @@ int32_t CBusConfig::Init()
 			string strBusLineEnd = string(pszValue);
 
 			BusLine *pBusLine = new BusLine();
+			pBusLine->m_strCityName = strCityName;
+			pBusLine->m_strCityID = strCityID;
 			pBusLine->m_strBusLineName = strBusLineName;
 			pBusLine->m_strBusLineID = strBusLineID;
 			pBusLine->m_strStartStation = strBusLineStart;
 			pBusLine->m_strEndStation = strBusLineEnd;
 
-			pCityInfo->m_stCityBusInfo[strBusLineID] = pBusLine;
+			m_stCountry.m_stCityBusInfo[strBusLineID] = pBusLine;
 
+			uint16_t nStationIndex = 0;
 			TiXmlElement *pStationNode = pBusLineNode->FirstChildElement("station");
 			while(pStationNode != NULL)
 			{
@@ -167,6 +164,10 @@ int32_t CBusConfig::Init()
 				pStation->m_strStationID = strStationID;
 				pStation->m_nLongitude = atoi64(strLongitude.c_str());
 				pStation->m_nLatitude = atoi64(strLatitude.c_str());
+				pStation->m_nStationIndex = nStationIndex;
+
+				++nStationIndex;
+				m_stBusLineInfo[strBusLineID].push_back(pStation);
 
 				pBusLine->m_stBusLineMap[strStationName] = pStation;
 
@@ -183,54 +184,105 @@ int32_t CBusConfig::Init()
 //卸载配置
 int32_t CBusConfig::Uninit()
 {
-	map<string, CityInfo *>::iterator it = m_stCountry.m_stCityInfo.begin();
-	for(; it != m_stCountry.m_stCityInfo.end();)
+	map<string, BusLine *>::iterator it = m_stCountry.m_stCityBusInfo.begin();
+	for(; it != m_stCountry.m_stCityBusInfo.end();)
 	{
-		CityInfo *pCityInfo = it->second;
-		map<string, BusLine *>::iterator et = pCityInfo->m_stCityBusInfo.begin();
-		for(; et != pCityInfo->m_stCityBusInfo.end();)
+		BusLine *pBusLine = it->second;
+		map<string, Station *>::iterator jt = pBusLine->m_stBusLineMap.begin();
+		for(; jt != pBusLine->m_stBusLineMap.end();)
 		{
-			BusLine *pBusLine = et->second;
-			map<string, Station *>::iterator jt = pBusLine->m_stBusLineMap.begin();
-			for(; jt != pBusLine->m_stBusLineMap.end();)
-			{
-				delete jt->second;
-				pBusLine->m_stBusLineMap.erase(jt++);
-			}
-
-			delete et->second;
-			pCityInfo->m_stCityBusInfo.erase(et++);
+			delete jt->second;
+			pBusLine->m_stBusLineMap.erase(jt++);
 		}
 
 		delete it->second;
-		m_stCountry.m_stCityInfo.erase(it++);
+		m_stCountry.m_stCityBusInfo.erase(it++);
 	}
 
 	return 0;
 }
 
-void CBusConfig::GetStationPosition(string strCityName, string strBusLineID, string strStation, uint64_t &nLongtitude, uint64_t &nLatitude)
+void CBusConfig::GetStationPosition(string strBusLineID, string strStation, uint64_t &nLongtitude, uint64_t &nLatitude)
 {
 	nLongtitude = 0;
 	nLatitude = 0;
 
-	map<string, CityInfo *>::iterator it = m_stCountry.m_stCityInfo.find(strCityName);
-	if(it != m_stCountry.m_stCityInfo.end())
+	const Station *pStation = GetStation(strBusLineID, strStation);
+	if(pStation != NULL)
 	{
-		CityInfo *pCityInfo = it->second;
-		map<string, BusLine *>::iterator et = pCityInfo->m_stCityBusInfo.find(strBusLineID);
-		if(et != pCityInfo->m_stCityBusInfo.end())
-		{
-			BusLine *pBusLine = et->second;
-			map<string, Station *>::iterator jt = pBusLine->m_stBusLineMap.find(strStation);
-			if(jt != pBusLine->m_stBusLineMap.end())
-			{
-				nLongtitude = jt->second->m_nLongitude;
-				nLatitude = jt->second->m_nLatitude;
-			}
-		}
+		nLongtitude = pStation->m_nLongitude;
+		nLatitude = pStation->m_nLatitude;
 	}
 }
 
+const Station *CBusConfig::GetStation(string strBusLineID, string strStation)
+{
+	map<string, BusLine *>::iterator it = m_stCountry.m_stCityBusInfo.find(strBusLineID);
+	if(it != m_stCountry.m_stCityBusInfo.end())
+	{
+		BusLine *pBusLine = it->second;
+		map<string, Station *>::iterator jt = pBusLine->m_stBusLineMap.find(strStation);
+		if(jt != pBusLine->m_stBusLineMap.end())
+		{
+			return jt->second;
+		}
+	}
 
+	return NULL;
+}
+
+const Station *CBusConfig::GetPrevStation(string strBusLineID, string strStation)
+{
+	const Station *pStation = GetStation(strBusLineID, strStation);
+	if(pStation == NULL)
+	{
+		return NULL;
+	}
+
+	map<string, StationList>::iterator it = m_stBusLineInfo.find(strBusLineID);
+	if(it != m_stBusLineInfo.end())
+	{
+		uint16_t nStationIndex = pStation->m_nStationIndex;
+		if(pStation->m_nStationIndex <= 0)
+		{
+			nStationIndex = 0;
+		}
+		else
+		{
+			--nStationIndex;
+		}
+
+		return it->second.at(nStationIndex);
+	}
+
+	return NULL;
+}
+
+const Station *CBusConfig::GetNextStation(string strBusLineID, string strStation)
+{
+	const Station *pStation = GetStation(strBusLineID, strStation);
+	if(pStation == NULL)
+	{
+		return NULL;
+	}
+
+	StationList *pStationList = NULL;
+	map<string, StationList>::iterator it = m_stBusLineInfo.find(strBusLineID);
+	if(it != m_stBusLineInfo.end())
+	{
+		uint16_t nStationIndex = pStation->m_nStationIndex;
+		if(pStation->m_nStationIndex >= (pStationList->size() - 1))
+		{
+			nStationIndex = pStationList->size() - 1;
+		}
+		else
+		{
+			++nStationIndex;
+		}
+
+		return it->second.at(nStationIndex);
+	}
+
+	return NULL;
+}
 
