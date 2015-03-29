@@ -28,7 +28,7 @@ class CUpdateCoordHandler : public CBaseObject
 		}
 		ControlHead			m_stCtlHead;
 		MsgHeadCS			m_stMsgHeadCS;
-		CGetNearStationReq	m_stGetNearStationReq;
+		CUpdateCoordReq	m_stUpdateCoordReq;
 	};
 
 public:
@@ -47,6 +47,10 @@ public:
 	}
 
 	int32_t UpdateCoord(ICtlHead *pCtlHead, IMsgHead *pMsgHead, IMsgBody *pMsgBody, uint8_t *pBuf, int32_t nBufSize);
+
+	int32_t OnSessionGetUserSimpleInfo(int32_t nResult, void *pReply, void *pSession);
+
+	int32_t OnRedisSessionTimeout(void *pTimerData);
 };
 
 
