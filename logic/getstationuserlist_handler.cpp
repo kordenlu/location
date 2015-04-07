@@ -60,8 +60,8 @@ int32_t CGetStationUserListHandler::GetStationUserList(ICtlHead *pCtlHead, IMsgH
 	mongoc_collection_t *pCollection = mongoc_client_get_collection(pMongoClient, "location", "user_coord");
 
 	bson_t *query = BCON_NEW("geoNear", "user_coord", "near", "[", BCON_DOUBLE(nLatitude / 1000000.0),
-			BCON_DOUBLE(nLongtitude / 1000000.0), "]", "maxDistance", BCON_DOUBLE(0.68 / 111.0), "query",
-			"{", "updatetime", "{", "$gt", BCON_INT32(0), "}", "}");
+			BCON_DOUBLE(nLongtitude / 1000000.0), "]", "maxDistance", BCON_DOUBLE(0.90 / 111.0), "query",
+			"{", "updatetime", "{", "$gt", BCON_INT32(0), "}", "limit", BCON_INT32(1), "}");
 
 	mongoc_cursor_t *cursor = mongoc_collection_command(pCollection, MONGOC_QUERY_NONE, 0, 0, 0, query, NULL, NULL);
 
@@ -118,18 +118,18 @@ int32_t CGetStationUserListHandler::GetStationUserList(ICtlHead *pCtlHead, IMsgH
 			}
 
 			//大于0.5km
-			if(nDistance * 10 > 5)
-			{
-				stGetStationUserListResp.m_arrNearUserSimpleInfo[nNearUserCount].m_nUin = stObj["uin"].GetUint();
-				stGetStationUserListResp.m_arrNearUserSimpleInfo[nNearUserCount].m_strNickName = stObj["nickname"].GetString();
-				stGetStationUserListResp.m_arrNearUserSimpleInfo[nNearUserCount].m_strHeadImageAddr = stObj["headimageaddr"].GetString();
-				stGetStationUserListResp.m_arrNearUserSimpleInfo[nNearUserCount].m_nAge = stObj["age"].GetInt();
-				stGetStationUserListResp.m_arrNearUserSimpleInfo[nNearUserCount].m_nGender = stObj["gender"].GetInt();
-				stGetStationUserListResp.m_arrNearUserSimpleInfo[nNearUserCount].m_strOneselfWords = stObj["oneselfwords"].GetString();
-
-				++nNearUserCount;
-			}
-			else
+//			if(nDistance * 10 > 5)
+//			{
+//				stGetStationUserListResp.m_arrNearUserSimpleInfo[nNearUserCount].m_nUin = stObj["uin"].GetUint();
+//				stGetStationUserListResp.m_arrNearUserSimpleInfo[nNearUserCount].m_strNickName = stObj["nickname"].GetString();
+//				stGetStationUserListResp.m_arrNearUserSimpleInfo[nNearUserCount].m_strHeadImageAddr = stObj["headimageaddr"].GetString();
+//				stGetStationUserListResp.m_arrNearUserSimpleInfo[nNearUserCount].m_nAge = stObj["age"].GetInt();
+//				stGetStationUserListResp.m_arrNearUserSimpleInfo[nNearUserCount].m_nGender = stObj["gender"].GetInt();
+//				stGetStationUserListResp.m_arrNearUserSimpleInfo[nNearUserCount].m_strOneselfWords = stObj["oneselfwords"].GetString();
+//
+//				++nNearUserCount;
+//			}
+//			else
 			{
 				stGetStationUserListResp.m_arrUserSimpleInfo[nUserCount].m_nUin = stObj["uin"].GetUint();
 				stGetStationUserListResp.m_arrUserSimpleInfo[nUserCount].m_strNickName = stObj["nickname"].GetString();
@@ -137,6 +137,7 @@ int32_t CGetStationUserListHandler::GetStationUserList(ICtlHead *pCtlHead, IMsgH
 				stGetStationUserListResp.m_arrUserSimpleInfo[nUserCount].m_nAge = stObj["age"].GetInt();
 				stGetStationUserListResp.m_arrUserSimpleInfo[nUserCount].m_nGender = stObj["gender"].GetInt();
 				stGetStationUserListResp.m_arrUserSimpleInfo[nUserCount].m_strOneselfWords = stObj["oneselfwords"].GetString();
+				stGetStationUserListResp.m_arrUserSimpleInfo[nUserCount].m_nDistance = (nDistance * 1000000) / 1000;
 
 				++nUserCount;
 			}
@@ -164,6 +165,10 @@ int32_t CGetStationUserListHandler::GetStationUserList(ICtlHead *pCtlHead, IMsgH
 	pRespChannel->RPush(NULL, (char *)arrRespBuf, nTotalSize);
 
 	g_Frame.Dump(pCtlHead, &stMsgHeadCS, &stGetStationUserListResp, "send ");
+
+	mongoc_collection_destroy(pCollection);
+	bson_destroy(query);
+	mongoc_cursor_destroy(cursor);
 
 	return 0;
 }
