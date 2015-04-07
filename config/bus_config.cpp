@@ -271,6 +271,7 @@ const Station *CBusConfig::GetNextStation(string strBusLineID, string strStation
 	if(it != m_stBusLineInfo.end())
 	{
 		uint16_t nStationIndex = pStation->m_nStationIndex;
+		pStationList = &(it->second);
 		if(pStation->m_nStationIndex >= (pStationList->size() - 1))
 		{
 			nStationIndex = pStationList->size() - 1;
