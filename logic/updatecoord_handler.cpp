@@ -47,6 +47,12 @@ int32_t CUpdateCoordHandler::UpdateCoord(ICtlHead *pCtlHead, IMsgHead *pMsgHead,
 		return 0;
 	}
 
+	if(pMsgHeadCS->m_nSrcUin == 0)
+	{
+		WRITE_WARN_LOG(SERVER_NAME, "uin is illegal!\n");
+		return 0;
+	}
+
 	CRedisSessionBank *pRedisSessionBank = (CRedisSessionBank *)g_Frame.GetBank(BANK_REDIS_SESSION);
 	RedisSession *pSession = pRedisSessionBank->CreateSession(this, static_cast<RedisReply>(&CUpdateCoordHandler::OnSessionGetUserSimpleInfo),
 			static_cast<TimerProc>(&CUpdateCoordHandler::OnRedisSessionTimeout));
@@ -55,7 +61,7 @@ int32_t CUpdateCoordHandler::UpdateCoord(ICtlHead *pCtlHead, IMsgHead *pMsgHead,
 	pSessionData->m_stMsgHeadCS = *pMsgHeadCS;
 	pSessionData->m_stUpdateCoordReq = *pUpdateCoordReq;
 
-	UserBaseInfo *pConfigUserBaseInfo = (UserBaseInfo *)g_Frame.GetConfig(USER_BASE_INFO);
+	UserBaseInfo *pConfigUserBaseInfo = (UserBaseInfo *)g_Frame.GetConfig(USER_BASEINFO);
 	CRedisBank *pRedisBank = (CRedisBank *)g_Frame.GetBank(BANK_REDIS);
 
 	CRedisChannel *pUserBaseInfoChannel = pRedisBank->GetRedisChannel(pConfigUserBaseInfo->string);
