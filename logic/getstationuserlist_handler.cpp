@@ -59,9 +59,11 @@ int32_t CGetStationUserListHandler::GetStationUserList(ICtlHead *pCtlHead, IMsgH
 	mongoc_client_t *pMongoClient = pMongoBank->GetMongoChannel("location");
 	mongoc_collection_t *pCollection = mongoc_client_get_collection(pMongoClient, "location", "user_coord");
 
-	bson_t *query = BCON_NEW("geoNear", "user_coord", "near", "[", BCON_DOUBLE(nLatitude / 1000000.0),
-			BCON_DOUBLE(nLongtitude / 1000000.0), "]", "maxDistance", BCON_DOUBLE(0.90 / 111.0), "query",
-			"{", "updatetime", "{", "$gt", BCON_INT32(0), "}", "limit", BCON_INT32(1), "}");
+	double nMinDistance = pGetStationUserListReq->m_nMinDistance / 1000.0;
+	bson_t *query = BCON_NEW("geoNear", "user_coord", "near", "[", BCON_DOUBLE(nLongtitude / 1000000.0),
+			BCON_DOUBLE(nLatitude / 1000000.0), "]", "minDistance", BCON_DOUBLE(nMinDistance / 6371.0), "maxDistance",
+			BCON_DOUBLE(1.0 / 6371.0), "query", "{", "updatetime", "{", "$gt", BCON_INT32(0), "}", "}", "spherical", BCON_BOOL(true),
+			"limit", BCON_INT32(pGetStationUserListReq->m_nReqCount));
 
 	mongoc_cursor_t *cursor = mongoc_collection_command(pCollection, MONGOC_QUERY_NONE, 0, 0, 0, query, NULL, NULL);
 
@@ -109,7 +111,7 @@ int32_t CGetStationUserListHandler::GetStationUserList(ICtlHead *pCtlHead, IMsgH
 			}
 
 			Value &stElement = stResult[i];
-			double nDistance = stElement["dis"].GetDouble() * 111.0;
+			double nDistance = stElement["dis"].GetDouble() * 6371.0;
 
 			Value &stObj = stElement["obj"];
 			if(!stObj.IsObject())
