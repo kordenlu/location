@@ -139,8 +139,8 @@ int32_t CUpdateCoordHandler::OnSessionGetUserSimpleInfo(int32_t nResult, void *p
 	mongoc_collection_t *pCollection = mongoc_client_get_collection(pMongoClient, pDBLocation->string, pDBLocation->user_coord.string);
 
 	bson_t *query = BCON_NEW(pDBLocation->user_coord.uin, BCON_INT32(pUserSession->m_stMsgHeadCS.m_nSrcUin));
-	bson_t *update = BCON_NEW("$set", "{", pDBLocation->user_coord.position, "[", BCON_DOUBLE(pUserSession->m_stUpdateCoordReq.m_nLatitude / 1000000.0),
-			BCON_DOUBLE(pUserSession->m_stUpdateCoordReq.m_nLongtitude / 1000000.0), "]", pDBLocation->user_coord.updatetime,
+	bson_t *update = BCON_NEW("$set", "{", pDBLocation->user_coord.position, "[", BCON_DOUBLE(pUserSession->m_stUpdateCoordReq.m_nLongtitude / 1000000.0),
+			BCON_DOUBLE(pUserSession->m_stUpdateCoordReq.m_nLatitude / 1000000.0), "]", pDBLocation->user_coord.updatetime,
 			BCON_INT32(CDateTime::CurrentDateTime().Seconds()), pDBLocation->user_coord.nickname, BCON_UTF8(strNickName.c_str()),
 			pDBLocation->user_coord.headimageaddr, BCON_UTF8(strHeadImage.c_str()), pDBLocation->user_coord.age, BCON_INT32(nAge),
 			pDBLocation->user_coord.gender, BCON_INT32(nGender), pDBLocation->user_coord.oneselfwords, BCON_UTF8(strOneselfWords.c_str()), "}");
