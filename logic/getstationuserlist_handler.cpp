@@ -59,7 +59,7 @@ int32_t CGetStationUserListHandler::GetStationUserList(ICtlHead *pCtlHead, IMsgH
 	mongoc_client_t *pMongoClient = pMongoBank->GetMongoChannel("location");
 	mongoc_collection_t *pCollection = mongoc_client_get_collection(pMongoClient, "location", "user_coord");
 
-	double nMinDistance = pGetStationUserListReq->m_nMinDistance / 1000.0;
+	double nMinDistance = (pGetStationUserListReq->m_nMinDistance + 1) / 1000.0;
 	bson_t *query = BCON_NEW("geoNear", "user_coord", "near", "[", BCON_DOUBLE(nLongtitude / 1000000.0),
 			BCON_DOUBLE(nLatitude / 1000000.0), "]", "minDistance", BCON_DOUBLE(nMinDistance / 6371.0), "maxDistance",
 			BCON_DOUBLE(1.0 / 6371.0), "query", "{", "updatetime", "{", "$gt", BCON_INT32(0), "}", "}", "spherical", BCON_BOOL(true),
