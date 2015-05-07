@@ -16,7 +16,6 @@
 #include "../../include/control_head.h"
 #include "../../include/typedef.h"
 #include "../../include/location_msg.h"
-#include "../config/msgdispatch_config.h"
 #include "../config/string_config.h"
 #include "../config/bus_config.h"
 #include "../server_typedef.h"

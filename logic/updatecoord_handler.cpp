@@ -17,7 +17,6 @@
 #include "../../include/control_head.h"
 #include "../../include/typedef.h"
 #include "../../include/location_msg.h"
-#include "../config/msgdispatch_config.h"
 #include "../config/string_config.h"
 #include "../config/bus_config.h"
 #include "../server_typedef.h"
@@ -39,6 +38,14 @@ int32_t CUpdateCoordHandler::UpdateCoord(ICtlHead *pCtlHead, IMsgHead *pMsgHead,
 	if(pMsgHeadCS == NULL)
 	{
 		return 0;
+	}
+
+	if(pControlHead->m_nUin != pMsgHeadCS->m_nSrcUin)
+	{
+		CRedisBank *pRedisBank = (CRedisBank *)g_Frame.GetBank(BANK_REDIS);
+		CRedisChannel *pClientRespChannel = pRedisBank->GetRedisChannel(pControlHead->m_nGateID, CLIENT_RESP);
+
+		return CServerHelper::KickUser(pControlHead, pMsgHeadCS, pClientRespChannel,KickReason_NotLogined);
 	}
 
 	CUpdateCoordReq *pUpdateCoordReq = dynamic_cast<CUpdateCoordReq *>(pMsgBody);
@@ -80,7 +87,6 @@ int32_t CUpdateCoordHandler::OnSessionGetUserSimpleInfo(int32_t nResult, void *p
 	CRedisSessionBank *pRedisSessionBank = (CRedisSessionBank *)g_Frame.GetBank(BANK_REDIS_SESSION);
 	CStringConfig *pStringConfig = (CStringConfig *)g_Frame.GetConfig(CONFIG_STRING);
 
-	CMsgDispatchConfig *pMsgDispatchConfig = (CMsgDispatchConfig *)g_Frame.GetConfig(CONFIG_MSGDISPATCH);
 	CRedisBank *pRedisBank = (CRedisBank *)g_Frame.GetBank(BANK_REDIS);
 	pRedisSessionBank->DestroySession(pRedisSession);
 
