@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <redis>
 	<node server_id="1" server_address="127.0.0.1" server_port="6379" channel_key="client:location:req" channel_mode="subscribe"/>
-	<node server_id="1" server_address="127.0.0.1" server_port="6379" channel_key="client:location:resp"/>
+	<node server_id="1" server_address="127.0.0.1" server_port="6379" channel_key="client:resp"/>
 	<node server_id="1" server_address="127.0.0.1" server_port="6379" channel_key="user:baseinfo:"/>
 	<node server_id="1" server_address="127.0.0.1" server_port="6379" channel_key="accountinfo:"/>
 </redis>
