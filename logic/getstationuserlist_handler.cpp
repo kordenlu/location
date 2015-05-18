@@ -6,22 +6,22 @@
  */
 
 #include "getstationuserlist_handler.h"
-#include "../../common/common_datetime.h"
-#include "../../common/common_api.h"
-#include "../../frame/frame.h"
-#include "../../frame/server_helper.h"
-#include "../../frame/redissession_bank.h"
-#include "../../logger/logger.h"
-#include "../../include/cachekey_define.h"
-#include "../../include/control_head.h"
-#include "../../include/typedef.h"
-#include "../../include/location_msg.h"
-#include "../config/string_config.h"
-#include "../config/bus_config.h"
-#include "../server_typedef.h"
-#include "../bank/redis_bank.h"
-#include "../bank/mongo_bank.h"
-#include "../../rapidjson/document.h"
+#include "common/common_datetime.h"
+#include "common/common_api.h"
+#include "frame/frame.h"
+#include "frame/server_helper.h"
+#include "frame/redissession_bank.h"
+#include "frame/cachekey_define.h"
+#include "logger/logger.h"
+#include "include/control_head.h"
+#include "include/typedef.h"
+#include "include/location_msg.h"
+#include "config/string_config.h"
+#include "config/bus_config.h"
+#include "server_typedef.h"
+#include "bank/redis_bank.h"
+#include "bank/mongo_bank.h"
+#include "rapidjson/document.h"
 using namespace rapidjson;
 
 using namespace LOGGER;
@@ -44,7 +44,7 @@ int32_t CGetStationUserListHandler::GetStationUserList(ICtlHead *pCtlHead, IMsgH
 	if(pControlHead->m_nUin != pMsgHeadCS->m_nSrcUin)
 	{
 		CRedisBank *pRedisBank = (CRedisBank *)g_Frame.GetBank(BANK_REDIS);
-		CRedisChannel *pClientRespChannel = pRedisBank->GetRedisChannel(pControlHead->m_nGateID, CLIENT_RESP);
+		CRedisChannel *pClientRespChannel = pRedisBank->GetRedisChannel(pControlHead->m_nGateRedisAddress, pControlHead->m_nGateRedisPort);
 
 		return CServerHelper::KickUser(pControlHead, pMsgHeadCS, pClientRespChannel, KickReason_NotLogined);
 	}
@@ -159,7 +159,7 @@ int32_t CGetStationUserListHandler::GetStationUserList(ICtlHead *pCtlHead, IMsgH
 	stGetStationUserListResp.m_nNearUserCount = nNearUserCount;
 
 	CRedisBank *pRedisBank = (CRedisBank *)g_Frame.GetBank(BANK_REDIS);
-	CRedisChannel *pRespChannel = pRedisBank->GetRedisChannel(CLIENT_RESP);
+	CRedisChannel *pRespChannel = pRedisBank->GetRedisChannel(pControlHead->m_nGateRedisAddress, pControlHead->m_nGateRedisPort);
 
 	uint8_t arrRespBuf[MAX_MSG_SIZE];
 
@@ -170,7 +170,7 @@ int32_t CGetStationUserListHandler::GetStationUserList(ICtlHead *pCtlHead, IMsgH
 	stMsgHeadCS.m_nDstUin = pMsgHeadCS->m_nDstUin;
 
 	uint16_t nTotalSize = CServerHelper::MakeMsg(pCtlHead, &stMsgHeadCS, &stGetStationUserListResp, arrRespBuf, sizeof(arrRespBuf));
-	pRespChannel->RPush(NULL, (char *)arrRespBuf, nTotalSize);
+	pRespChannel->RPush(NULL, CServerHelper::MakeRedisKey(ClientResp::keyname, pControlHead->m_nGateID), (char *)arrRespBuf, nTotalSize);
 
 	g_Frame.Dump(pCtlHead, &stMsgHeadCS, &stGetStationUserListResp, "send ");
 

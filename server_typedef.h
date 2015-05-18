@@ -13,11 +13,11 @@
 #define SERVER_NAME			"location"
 
 #define CONFIG_SERVER		"./server_config.xml"
-#define CONFIG_REDIS			"./redis_config.xml"
+#define CONFIG_REDIS		"redis_config.xml"
 #define CONFIG_MSGDISPATCH	"./msgdispatch_config.xml"
-#define CONFIG_STRING		"./string_config.xml"
-#define CONFIG_BUS			"./bus_config.xml"
-#define CONFIG_MONGO			"./mongo_config.xml"
+#define CONFIG_STRING		"string_config.xml"
+#define CONFIG_BUS			"bus_config.xml"
+#define CONFIG_MONGO		"mongo_config.xml"
 
 #define BANK_REDIS			"redis_bank"
 #define BANK_MONGO			"mongo_bank"

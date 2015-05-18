@@ -8,10 +8,10 @@
 #ifndef REGIST_MESSAGE_H_
 #define REGIST_MESSAGE_H_
 
-#include "../frame/frame.h"
-#include "../include/msg_head.h"
-#include "../include/control_head.h"
-#include "../include/location_msg.h"
+#include "frame/frame.h"
+#include "include/msg_head.h"
+#include "include/control_head.h"
+#include "include/location_msg.h"
 #include "logic/getstationuserlist_handler.h"
 #include "logic/updatecoord_handler.h"
 

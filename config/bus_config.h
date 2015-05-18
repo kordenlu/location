@@ -8,10 +8,10 @@
 #ifndef BUS_CONFIG_H_
 #define BUS_CONFIG_H_
 
-#include "../../frame/frame_impl.h"
-#include "../../frame/frame.h"
-#include "../../include/typedef.h"
-#include "../server_typedef.h"
+#include "frame/frame_impl.h"
+#include "frame/frame.h"
+#include "include/typedef.h"
+#include "server_typedef.h"
 #include <map>
 #include <vector>
 #include <string>
@@ -82,6 +82,8 @@ public:
 	virtual int32_t Init();
 	//卸载配置
 	virtual int32_t Uninit();
+
+	virtual int32_t Parser(char *pXMLString);
 
 	void GetStationPosition(string strBusLineID, string strStation, uint64_t &nLongtitude, uint64_t &nLatitude);
 

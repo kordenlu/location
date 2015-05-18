@@ -6,22 +6,22 @@
  */
 
 #include "updatecoord_handler.h"
-#include "../../common/common_datetime.h"
-#include "../../common/common_api.h"
-#include "../../frame/frame.h"
-#include "../../frame/server_helper.h"
-#include "../../frame/redissession_bank.h"
-#include "../../logger/logger.h"
-#include "../../include/cachekey_define.h"
-#include "../../include/dbkey_define.h"
-#include "../../include/control_head.h"
-#include "../../include/typedef.h"
-#include "../../include/location_msg.h"
-#include "../config/string_config.h"
-#include "../config/bus_config.h"
-#include "../server_typedef.h"
-#include "../bank/redis_bank.h"
-#include "../bank/mongo_bank.h"
+#include "common/common_datetime.h"
+#include "common/common_api.h"
+#include "frame/frame.h"
+#include "frame/server_helper.h"
+#include "frame/redissession_bank.h"
+#include "frame/cachekey_define.h"
+#include "logger/logger.h"
+#include "include/dbkey_define.h"
+#include "include/control_head.h"
+#include "include/typedef.h"
+#include "include/location_msg.h"
+#include "config/string_config.h"
+#include "config/bus_config.h"
+#include "server_typedef.h"
+#include "bank/redis_bank.h"
+#include "bank/mongo_bank.h"
 
 using namespace LOGGER;
 using namespace FRAME;
@@ -43,7 +43,7 @@ int32_t CUpdateCoordHandler::UpdateCoord(ICtlHead *pCtlHead, IMsgHead *pMsgHead,
 	if(pControlHead->m_nUin != pMsgHeadCS->m_nSrcUin)
 	{
 		CRedisBank *pRedisBank = (CRedisBank *)g_Frame.GetBank(BANK_REDIS);
-		CRedisChannel *pClientRespChannel = pRedisBank->GetRedisChannel(pControlHead->m_nGateID, CLIENT_RESP);
+		CRedisChannel *pClientRespChannel = pRedisBank->GetRedisChannel(pControlHead->m_nGateRedisAddress, pControlHead->m_nGateRedisPort);
 
 		return CServerHelper::KickUser(pControlHead, pMsgHeadCS, pClientRespChannel,KickReason_NotLogined);
 	}
@@ -68,12 +68,11 @@ int32_t CUpdateCoordHandler::UpdateCoord(ICtlHead *pCtlHead, IMsgHead *pMsgHead,
 	pSessionData->m_stMsgHeadCS = *pMsgHeadCS;
 	pSessionData->m_stUpdateCoordReq = *pUpdateCoordReq;
 
-	UserBaseInfo *pConfigUserBaseInfo = (UserBaseInfo *)g_Frame.GetConfig(USER_BASEINFO);
 	CRedisBank *pRedisBank = (CRedisBank *)g_Frame.GetBank(BANK_REDIS);
 
-	CRedisChannel *pUserBaseInfoChannel = pRedisBank->GetRedisChannel(pConfigUserBaseInfo->string);
-	pUserBaseInfoChannel->HMGet(pSession, itoa(pMsgHeadCS->m_nSrcUin), "%s %s %s %s %s", pConfigUserBaseInfo->nickname,
-			pConfigUserBaseInfo->headimage, pConfigUserBaseInfo->gender, pConfigUserBaseInfo->age, pConfigUserBaseInfo->oneselfwords);
+	CRedisChannel *pUserBaseInfoChannel = pRedisBank->GetRedisChannel(UserBaseInfo::servername, pMsgHeadCS->m_nSrcUin);
+	pUserBaseInfoChannel->HMGet(pSession, CServerHelper::MakeRedisKey(UserBaseInfo::keyname, pMsgHeadCS->m_nSrcUin),
+			"%s %s %s %s %s", UserBaseInfo::nickname, UserBaseInfo::headimage, UserBaseInfo::gender, UserBaseInfo::age, UserBaseInfo::oneselfwords);
 
 	return 0;
 }

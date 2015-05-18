@@ -8,10 +8,10 @@
 #ifndef CONFIG_MONGO_CONFIG_H_
 #define CONFIG_MONGO_CONFIG_H_
 
-#include "../../frame/frame_impl.h"
-#include "../../frame/frame.h"
-#include "../../include/typedef.h"
-#include "../server_typedef.h"
+#include "frame/frame_impl.h"
+#include "frame/frame.h"
+#include "include/typedef.h"
+#include "server_typedef.h"
 #include <string.h>
 
 using namespace FRAME;
@@ -46,6 +46,8 @@ public:
 	virtual int32_t Init();
 	//卸载配置
 	virtual int32_t Uninit();
+
+	virtual int32_t Parser(char *pXMLString);
 
 	int32_t GetMongoServerInfo(MongoServerInfo arrMongoServerInfo[], int32_t nMaxCount);
 

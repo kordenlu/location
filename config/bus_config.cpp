@@ -14,17 +14,39 @@
 using namespace LOGGER;
 
 //注册到配置管理器
-REGIST_CONFIG(CONFIG_BUS, CBusConfig)
+REGIST_CONFIG_SAFE(CONFIG_BUS, CBusConfig)
 
 //初始化配置
 int32_t CBusConfig::Init()
 {
-	TiXmlDocument doc(m_szConfigFile);
-	if (!doc.LoadFile(TIXML_ENCODING_UTF8))
+	return 0;
+}
+
+//卸载配置
+int32_t CBusConfig::Uninit()
+{
+	map<string, BusLine *>::iterator it = m_stCountry.m_stCityBusInfo.begin();
+	for(; it != m_stCountry.m_stCityBusInfo.end();)
 	{
-		WRITE_WARN_LOG(SERVER_NAME, "%s is not format utf8!\n", m_szConfigFile);
-		return 1;
+		BusLine *pBusLine = it->second;
+		map<string, Station *>::iterator jt = pBusLine->m_stBusLineMap.begin();
+		for(; jt != pBusLine->m_stBusLineMap.end();)
+		{
+			delete jt->second;
+			pBusLine->m_stBusLineMap.erase(jt++);
+		}
+
+		delete it->second;
+		m_stCountry.m_stCityBusInfo.erase(it++);
 	}
+
+	return 0;
+}
+
+int32_t CBusConfig::Parser(char *pXMLString)
+{
+	TiXmlDocument doc;
+	doc.Parse(pXMLString, 0, TIXML_ENCODING_UTF8);
 
 	//获取根节点
 	TiXmlElement *pRoot = doc.RootElement();
@@ -176,27 +198,6 @@ int32_t CBusConfig::Init()
 			pBusLineNode = pBusLineNode->NextSiblingElement();
 		}
 		pAreaNode = pAreaNode->NextSiblingElement();
-	}
-
-	return 0;
-}
-
-//卸载配置
-int32_t CBusConfig::Uninit()
-{
-	map<string, BusLine *>::iterator it = m_stCountry.m_stCityBusInfo.begin();
-	for(; it != m_stCountry.m_stCityBusInfo.end();)
-	{
-		BusLine *pBusLine = it->second;
-		map<string, Station *>::iterator jt = pBusLine->m_stBusLineMap.begin();
-		for(; jt != pBusLine->m_stBusLineMap.end();)
-		{
-			delete jt->second;
-			pBusLine->m_stBusLineMap.erase(jt++);
-		}
-
-		delete it->second;
-		m_stCountry.m_stCityBusInfo.erase(it++);
 	}
 
 	return 0;
