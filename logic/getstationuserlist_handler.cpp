@@ -69,7 +69,7 @@ int32_t CGetStationUserListHandler::GetStationUserList(ICtlHead *pCtlHead, IMsgH
 	double nMinDistance = (pGetStationUserListReq->m_nMinDistance + 10) / 1000.0;
 	bson_t *query = BCON_NEW("geoNear", "user_coord", "near", "[", BCON_DOUBLE(nLongtitude / 1000000.0),
 			BCON_DOUBLE(nLatitude / 1000000.0), "]", "minDistance", BCON_DOUBLE(nMinDistance / 6371.0), "maxDistance",
-			BCON_DOUBLE(1.0 / 6371.0), "query", "{", "updatetime", "{", "$gt", BCON_INT32(0), "}", "}", "spherical", BCON_BOOL(true),
+			BCON_DOUBLE(10.0 / 6371.0), "query", "{", "updatetime", "{", "$gt", BCON_INT32(0), "}", "}", "spherical", BCON_BOOL(true),
 			"limit", BCON_INT32(pGetStationUserListReq->m_nReqCount));
 
 	mongoc_cursor_t *cursor = mongoc_collection_command(pCollection, MONGOC_QUERY_NONE, 0, 0, 0, query, NULL, NULL);
