@@ -40,13 +40,13 @@ int32_t CUpdateCoordHandler::UpdateCoord(ICtlHead *pCtlHead, IMsgHead *pMsgHead,
 		return 0;
 	}
 
-	if(pControlHead->m_nUin != pMsgHeadCS->m_nSrcUin)
-	{
-		CRedisBank *pRedisBank = (CRedisBank *)g_Frame.GetBank(BANK_REDIS);
-		CRedisChannel *pClientRespChannel = pRedisBank->GetRedisChannel(pControlHead->m_nGateRedisAddress, pControlHead->m_nGateRedisPort);
-
-		return CServerHelper::KickUser(pControlHead, pMsgHeadCS, pClientRespChannel,KickReason_NotLogined);
-	}
+//	if(pControlHead->m_nUin != pMsgHeadCS->m_nSrcUin)
+//	{
+//		CRedisBank *pRedisBank = (CRedisBank *)g_Frame.GetBank(BANK_REDIS);
+//		CRedisChannel *pClientRespChannel = pRedisBank->GetRedisChannel(pControlHead->m_nGateRedisAddress, pControlHead->m_nGateRedisPort);
+//
+//		return CServerHelper::KickUser(pControlHead, pMsgHeadCS, pClientRespChannel,KickReason_NotLogined);
+//	}
 
 	CUpdateCoordReq *pUpdateCoordReq = dynamic_cast<CUpdateCoordReq *>(pMsgBody);
 	if(pUpdateCoordReq == NULL)
